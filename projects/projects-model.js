@@ -46,13 +46,13 @@ function getProjResources(project_id){
     return db('project_resources')
     .join('projects', 'projects.id', 'project_resources.project_id' )
     .join('resources', 'resources.id', 'project_resources.resource_id' )
-    .select('projects.proj_name', 'resources.resources_name')
+    .select('projects.proj_name', 'resources.resources_name', 'resources.resources_description', 'resources.id', 'projects.id')
     .where({project_id})
 }
 
-function addProjResources(proj_id){
+function addProjResources(id){
     return db('resources')
-    .insert(proj_id, 'id')
+    .insert(id, 'id')
     .then(ids =>{
         return getProjResources(ids[0])
     })

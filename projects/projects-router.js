@@ -79,4 +79,16 @@ router.post('/:id/tasks', (req, res)=>{
         res.status(500).json({message: 'Failed to create new task'})
     })
 })
+
+router.post('/:id/resources', (req, res)=>{
+    const resourceData = req.body
+    Proj.addProjResources(resourceData)
+    .then(resource =>{
+        res.status(201).json({created: resource})
+    }).catch(err =>{
+        console.log(err, 'resource adding error')
+        res.status(500).json({message: 'Failed to create new resource for this project'})
+    })
+})
+
 module.exports = router;
