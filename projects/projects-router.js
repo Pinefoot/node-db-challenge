@@ -43,6 +43,21 @@ router.get('/:id/tasks', (req, res)=>{
     })
 })
 
+router.get('/:id/resources', (req, res)=>{
+    const {id} = req.params
+    Proj.getProjResources(id)
+    .then(resource =>{
+        if(resource.length){
+            res.json(resource)
+        }else{
+            res.status(404).json({message: 'Could not find specific resources for this project'})
+        }
+    }).catch(err =>{
+        console.log(err, 'resource project get')
+        res.status(500).json({message: 'failure to get the resources for this project from database'})
+    })
+})
+
 
 router.post('/', (req, res)=>{
     const projectData = req.body
