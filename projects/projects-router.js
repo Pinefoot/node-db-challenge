@@ -27,7 +27,20 @@ router.get('/:id',(req, res)=>{
 })
 
 router.get('/:id/tasks', (req, res)=>{
+    const {id} = req.params
 
+    Proj.getTasks(id)
+    .then(tasks =>{
+        if(tasks.length){
+            res.json(tasks)
+        }else{
+            res.status(404).json({message: 'Could not find tasks based on id'})
+        
+        }
+    }).catch(err =>{
+        console.log(err, 'error for tasks')
+        res.status(500).json({message: 'Failed to get tasks from database'})
+    })
 })
 
 
