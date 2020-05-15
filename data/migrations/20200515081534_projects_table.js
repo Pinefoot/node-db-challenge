@@ -31,7 +31,7 @@ exports.up = function(knex) {
     .createTable('project_resources', tbl=>{
         tbl.increments();
         //foreign key that connects to the projects table
-        table.integer('project_id')
+        tbl.integer('project_id')
             .unsigned()
             .notNullable()
             .references('id')
@@ -39,7 +39,7 @@ exports.up = function(knex) {
             .onDelete('CASCADE')
             .onUpdate('CASCADE')
         //foreign key that connects to the resources table
-        table.integer('resource_id')
+        tbl.integer('resource_id')
             .unsigned()
             .notNullable()
             .references('id')
@@ -48,8 +48,10 @@ exports.up = function(knex) {
             .onUpdate('CASCADE')
     })
 };
-
 exports.down = function(knex) {
   return knex.schema
-    
+    .dropTableIfExists('project_resources')
+    .dropTableIfExists('resources')
+    .dropTableIfExists('tasks')
+    .dropTableIfExists('projects')
 };
