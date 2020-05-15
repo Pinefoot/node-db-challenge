@@ -53,4 +53,15 @@ router.post('/', (req, res)=>{
         res.status(500).json({message: 'Failed to create new project'})
     })
 })
+
+router.post('/:id/tasks', (req, res)=>{
+    const taskData = req.body
+    Proj.addTasks(taskData)
+    .then(task =>{
+        res.status(201).json({created: task})
+    }).catch(err =>{
+        console.log(err, 'task adding error')
+        res.status(500).json({message: 'Failed to create new task'})
+    })
+})
 module.exports = router;
