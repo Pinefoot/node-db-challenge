@@ -13,11 +13,31 @@ router.get('/', (req, res)=>{
 })
 
 router.get('/:id',(req, res)=>{
-
+    const {id} = req.params
+    Proj.getProjById(id)
+    .then(projects =>{
+        if(projects){
+            res.json(projects)
+        }else{
+            res.status(404).json({message: 'Could not find project with associated ID'})
+        }
+    }).catch(err =>{
+        res.status(500).json({message: 'error conecting to database'})
+    })
 })
 
 router.get('/:id/tasks', (req, res)=>{
 
 })
 
+
+router.post('/', (req, res)=>{
+    const projectData = req.body
+    Proj.addProj(projectData)
+    .then(project =>{
+        res.status(201).json({created: project })
+    }).catch(err =>{
+        res.status(500).json({message: 'Failed to create new project'})
+    })
+})
 module.exports = router;
