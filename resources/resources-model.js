@@ -3,7 +3,8 @@ const db = require('../data/dbConfig')
 module.exports = {
     getAllResource,
     addResource,
-    getResourceById
+    getResourceById,
+    
 }
 //adding resources.
 //retrieving a list of resources.

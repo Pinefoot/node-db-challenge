@@ -50,9 +50,9 @@ function getProjResources(project_id){
     .where({project_id})
 }
 
-function addProjResources(id){
+function addProjResources(projects){
     return db('resources')
-    .insert(id, 'id')
+    .insert(projects, 'id')
     .then(ids =>{
         return getProjResources(ids[0])
     })
